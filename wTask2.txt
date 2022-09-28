@@ -42,414 +42,420 @@ int falignment[NumOfNodOfFirstNet];
 
 
 
+
+//function name: argmax, input:  (type: 2-D matrix double, name: vote), outputs (type: double and name: mymax)
 // the below function recieves the vote matrix as the input and calculates the maximum value of the vote( those nodes that are unaligned and have the maximum similarity)
 double argmax(double vote[NumOfNodOfFirstNet][NumOfNodOfSecondNet])
 {
-double mymax;
-mymax = vote[1][1];
-for (int i = 1; i <= NumOfNodOfFirstNet; i++)
-{
+	double mymax;
+	mymax = vote[1][1];
+	for (int i = 1; i <= NumOfNodOfFirstNet; i++)
+	{
 
 
 
-for (int j = 1; j <= NumOfNodOfSecondNet; j++)
-{
+		for (int j = 1; j <= NumOfNodOfSecondNet; j++)
+		{
 
 
 
-if (visitedsrcu[i] == 1 || visitedtarv[j] == 1) continue;
-if (vote[i][j] > mymax)
-{
-cout << "i is :" << i << "j is: " << j << endl;
-ustar = i;
-vstar = j;
-mymax = vote[i][j];
-//std::cout << "i is :" << i << "j is: " << j << endl;
+			if (visitedsrcu[i] == 1 || visitedtarv[j] == 1) continue;
+			if (vote[i][j] > mymax)
+			{
+				cout << "i is :" << i << "j is: " << j << endl;
+				ustar = i;
+				vstar = j;
+				mymax = vote[i][j];
+				//std::cout << "i is :" << i << "j is: " << j << endl;
 
+			}
+		}
+	}
+
+	std::cout << "max is :" << mymax << " ustar , vstar in tabe are :  :D  " << ustar << vstar << endl;
+	return mymax;
 }
-}
-}
-
-std::cout << "max is :" << mymax << " ustar , vstar in tabe are :  :D  " << ustar << vstar << endl;
-return mymax;
-}
 
 
-
+//function name:saveNetSecond : no input, outputs: void
 //the below function reads the second network from the file and save it as a matrix named myNode2
 void saveNetSecond() {
 
-int ts = 1;
-string STRING;
-ifstream file;
-file.open("test-network");
-getline(file, STRING);
-//cout << "string2 : " << STRING << endl;
-stringstream geek(STRING);
-geek >> myNod2[0][0];
-geek >> myNod2[1][0];
-string previousLine = "";
-int is = 0;
+	int ts = 1;
+	string STRING;
+	ifstream file;
+	file.open("test-network");
+	getline(file, STRING);
+	//cout << "string2 : " << STRING << endl;
+	stringstream geek(STRING);
+	geek >> myNod2[0][0];
+	geek >> myNod2[1][0];
+	string previousLine = "";
+	int is = 0;
 
-for (int a = 1; a <= LastLineofSecondFileMinusOne; a++)
-{
-getline(file, STRING);
-if (STRING != previousLine)
-{
-previousLine = STRING;
-stringstream geek(STRING);
-geek >> myNod2[0][ts];
-geek >> myNod2[1][ts];
-//cout << "myNoddovomi 0,1 : " << " [t] is : " << ts << "    " << myNod2[0][ts] << "   " << myNod2[1][ts] << endl;
+	for (int a = 1; a <= LastLineofSecondFileMinusOne; a++)
+	{
+		getline(file, STRING);
+		if (STRING != previousLine)
+		{
+			previousLine = STRING;
+			stringstream geek(STRING);
+			geek >> myNod2[0][ts];
+			geek >> myNod2[1][ts];
+			//cout << "myNoddovomi 0,1 : " << " [t] is : " << ts << "    " << myNod2[0][ts] << "   " << myNod2[1][ts] << endl;
+
+
+		}
+
+		ts++;
+	}
+	file.close();
 
 
 }
 
-ts++;
-}
-file.close();
-
-
-}
-
-
+//function name:saveNetFirst : no input, outputs: void
 // This function saves the first network in the matrix (the two dimention array) myNod
 void saveNetFirst() {
-int t = 1;
-string STRING2;
-ifstream theInputFile;
-//the name of variable "test.net.bozorgtar2" means the biggerNetwork
-theInputFile.open("test.net.bozorgtar2");
-getline(theInputFile, STRING2);
-//cout << "string2 : " << STRING2 << endl;
-stringstream geek(STRING2);
-geek >> myNod[0][0];
-geek >> myNod[1][0];
+	int t = 1;
+	string STRING2;
+	ifstream theInputFile;
+	//the name of variable "test.net.bozorgtar2" means the biggerNetwork
+	theInputFile.open("test.net.bozorgtar2");
+	getline(theInputFile, STRING2);
+	//cout << "string2 : " << STRING2 << endl;
+	stringstream geek(STRING2);
+	geek >> myNod[0][0];
+	geek >> myNod[1][0];
 
-string previousLine = "";
-int i = 0;
+	string previousLine = "";
+	int i = 0;
 
-for (int a = 1; a <= LastLineOfFirstFileMinusOne; a++)
-{
-getline(theInputFile, STRING2);
-if (STRING2 != previousLine)
-{
-previousLine = STRING2;
-stringstream geek(STRING2);
-geek >> myNod[0][t];
-geek >> myNod[1][t];
-//cout << "myNode 0,1 : " << " [t] is : " << t << "    " << myNod[0][t] << "   " << myNod[1][t] << endl;
+	for (int a = 1; a <= LastLineOfFirstFileMinusOne; a++)
+	{
+		getline(theInputFile, STRING2);
+		if (STRING2 != previousLine)
+		{
+			previousLine = STRING2;
+			stringstream geek(STRING2);
+			geek >> myNod[0][t];
+			geek >> myNod[1][t];
+			//cout << "myNode 0,1 : " << " [t] is : " << t << "    " << myNod[0][t] << "   " << myNod[1][t] << endl;
+
+
+		}
+
+		t++;
+	}
+	theInputFile.close();
 
 
 }
 
-t++;
-}
-theInputFile.close();
 
-
-}
-
-
-
+//function name:findingNeighbours2 : inputs(type: int and name: ii2), outputs: void
 //English: in the below function the right neighbours of the file are the result; it means that when the left nodes of file are the input, the right nighbours are the output of this function
 
 void findingNeighbours2(int ii2)
 {
-int a2 = 1;
-int i2 = 1;
+	int a2 = 1;
+	int i2 = 1;
 
-while (a2 <= labaleNum2[ii2])
-{
-for (int s = 1; s <= LastLineofSecondFileMinusOne; s++)
-{
-if (myNod2[0][s] == ii2)
-{
-neighbours2[i2] = myNod2[1][s];
-i2++;
+	while (a2 <= labaleNum2[ii2])
+	{
+		for (int s = 1; s <= LastLineofSecondFileMinusOne; s++)
+		{
+			if (myNod2[0][s] == ii2)
+			{
+				neighbours2[i2] = myNod2[1][s];
+				i2++;
+			}
+
+
+		}
+
+		a2++;
+	}
+
+
 }
 
 
-}
 
-a2++;
-}
-
-
-}
-
-
+//function name:findingNeighbours : inputs(type: int and name: ii), outputs: void
 //English: in the below function the right neighbours of the file are the result; it means that when the left nodes of file are the input, the right nighbours are the output of this function
-void findingNeighbours(int ii)//persian: in function faghat hamsaye haye samte rast file ro mideh ; yaani vaghti node samte chabe file vooroodi ye , in tabe rasti ha ro mide
+void findingNeighbours(int ii)
 {
-int a = 1;
-int i = 1;
+	int a = 1;
+	int i = 1;
 
-while (a <= labaleNum[ii])
-{
-for (int s = 1; s <= LastLineOfFirstFileMinusOne; s++)
-{
-if (myNod[0][s] == ii)
-{
-neighbours[i] = myNod[1][s];
-i++;
+	while (a <= labaleNum[ii])
+	{
+		for (int s = 1; s <= LastLineOfFirstFileMinusOne; s++)
+		{
+			if (myNod[0][s] == ii)
+			{
+				neighbours[i] = myNod[1][s];
+				i++;
+			}
+
+		}
+
+		a++;
+	}
+
+
 }
 
-}
-
-a++;
-}
-
-
-}
-
-
+// function name: displayAdjList: inputs (type: list of int,and int, name: adj_list, v), output: void
 // the below function is being used for displaying the adjacency list of the networks
 void displayAdjList(list<int> adj_list[], int v) {
 
-for (int i = 1; i < v; i++) {
-//cout << i << "--->";
-list<int> ::iterator it;
-for (it = adj_list[i].begin(); it != adj_list[i].end(); ++it) {
-cout << *it << " ";
-}
-//cout << endl;
-}
+	for (int i = 1; i < v; i++) {
+		//cout << i << "--->";
+		list<int> ::iterator it;
+		for (it = adj_list[i].begin(); it != adj_list[i].end(); ++it) {
+			cout << *it << " ";
+		}
+		//cout << endl;
+	}
 }
 
 
+
+// function name:add_edge, inputs(type: list of int, int and int, name:adj_list[], u, v ), output: void
 // this function adds edges of the networks into the list named adj_list
 void add_edge(list<int> adj_list[], int u, int v) {   //add v into the list u, and u into list v
-adj_list[u].push_back(v);
-adj_list[v].push_back(u);
+	adj_list[u].push_back(v);
+	adj_list[v].push_back(u);
 }
 
-
+// function name :readsimi, no input, no outputs but it fills a 2 dimention array(type: an 2-D array of double, name: simi)
 // this function reads the similarity file and saves the values into a matrix or 2 dimentional array named simi[][]
 void readsimi()
 {
-int ts = 1;
-ifstream simiFile;
-simiFile.open("simi.txt");
-for (int a = 1; a <= LastLineOFtheSimiFile; a++)
-{
+	int ts = 1;
+	ifstream simiFile;
+	simiFile.open("simi.txt");
+	for (int a = 1; a <= LastLineOFtheSimiFile; a++)
+	{
 
-simiFile >> idnod1 >> idnod2;
+		simiFile >> idnod1 >> idnod2;
 
-simiFile >> simi[idnod1][idnod2];
+		simiFile >> simi[idnod1][idnod2];
+
+
+	}
+
+
+
+	simiFile.close();
+
+
 
 
 }
 
 
 
-simiFile.close();
-
-
-
-
-}
-
-
-
-//main: no input, outputs ( type: an array of integers and name: falignment) 
+//main: no input, outputs ( type: an array of integers , name: falignment) 
 int main() {
-int keep;
+	int keep;
 
 
 
-for (int i = 1; i <= NumOfNodOfFirstNet; i++)
-{
-labaleNum[i] = 0;
-}
+	for (int i = 1; i <= NumOfNodOfFirstNet; i++)
+	{
+		labaleNum[i] = 0;
+	}
 
 
-list<int> adj_list[NumOfNodOfFirstNetPlusOne];
-list<int> myListSecondNet[NumOfNodOfSecondNetPlusOne];
+	list<int> adj_list[NumOfNodOfFirstNetPlusOne];
+	list<int> myListSecondNet[NumOfNodOfSecondNetPlusOne];
 
-saveNetFirst();
+	saveNetFirst();
 
 
 
 
-for (int k = 1; k <= NumOfNodOfFirstNet; k++)
-{
-for (int j = 1; j <= LastLineOfFirstFileMinusOne; j++)
-{
-if (k == myNod[0][j])
+	for (int k = 1; k <= NumOfNodOfFirstNet; k++)
+	{
+		for (int j = 1; j <= LastLineOfFirstFileMinusOne; j++)
+		{
+			if (k == myNod[0][j])
 
-{
-labaleNum[k]++;
-// for each node keeps the number of neighbours and the index is the node which is the neighbour
+			{
+				labaleNum[k]++;
+				// for each node keeps the number of neighbours and the index is the node which is the neighbour
 
-}
+			}
 
 
-}
-}
+		}
+	}
 
 
 
-int za;
+	int za;
 
-//the below part makes the edges from the nodes that they are neighbours
-for (int f = 1; f <= NumOfNodOfFirstNet; f++)
-{
-findingNeighbours(f);
-for (int i = 1; i <= labaleNum[f]; i++)
-{
-za = neighbours[i];
+	//the below part makes the edges from the nodes that they are neighbours
+	for (int f = 1; f <= NumOfNodOfFirstNet; f++)
+	{
+		findingNeighbours(f);
+		for (int i = 1; i <= labaleNum[f]; i++)
+		{
+			za = neighbours[i];
 
 
-add_edge(adj_list, f, za);
-}
+			add_edge(adj_list, f, za);
+		}
 
-}
+	}
 
 
-displayAdjList(adj_list, NumOfNodOfFirstNetPlusOne);
-saveNetSecond();
+	displayAdjList(adj_list, NumOfNodOfFirstNetPlusOne);
+	saveNetSecond();
 
-for (int k = 1; k <= NumOfNodOfSecondNet; k++)
-{
-for (int j = 1; j <= LastLineofSecondFileMinusOne; j++)
-{
-if (k == myNod2[0][j])
+	for (int k = 1; k <= NumOfNodOfSecondNet; k++)
+	{
+		for (int j = 1; j <= LastLineofSecondFileMinusOne; j++)
+		{
+			if (k == myNod2[0][j])
 
-{
-labaleNum2[k]++;
+			{
+				labaleNum2[k]++;
 
-}
+			}
 
 
-}
-}
+		}
+	}
 
-int za2;
+	int za2;
 
-for (int f = 1; f <= NumOfNodOfSecondNet; f++)
-{
-findingNeighbours2(f);
+	for (int f = 1; f <= NumOfNodOfSecondNet; f++)
+	{
+		findingNeighbours2(f);
 
-for (int i = 1; i <= labaleNum2[f]; i++)
-{
-za2 = neighbours2[i];
-add_edge(myListSecondNet, f, za2);
-}
+		for (int i = 1; i <= labaleNum2[f]; i++)
+		{
+			za2 = neighbours2[i];
+			add_edge(myListSecondNet, f, za2);
+		}
 
-}
+	}
 
-displayAdjList(myListSecondNet, NumOfNodOfSecondNetPlusOne);
+	displayAdjList(myListSecondNet, NumOfNodOfSecondNetPlusOne);
 
 
-readsimi();
+	readsimi();
 
 
-//English: the below part saves the similarity matrix into the vote matrix with mulltiply the similarities in Beta_n
-for (int i = 1; i <= NumOfNodOfFirstNet; i++)
-{
+	//English: the below part saves the similarity matrix into the vote matrix with mulltiply the similarities in Beta_n
+	for (int i = 1; i <= NumOfNodOfFirstNet; i++)
+	{
 
 
-for (int j = 1; j <= NumOfNodOfSecondNet; j++)
-{
+		for (int j = 1; j <= NumOfNodOfSecondNet; j++)
+		{
 
-vote[i][j] = beta_n * simi[i][j];
-//cout << "vot i, j is : " << vote[i][j] << endl;
-//cout << "i , j    is : " << i << "   " << j << endl;
+			vote[i][j] = beta_n * simi[i][j];
+			//cout << "vot i, j is : " << vote[i][j] << endl;
+			//cout << "i , j    is : " << i << "   " << j << endl;
 
 
-}
-}
+		}
+	}
 
 
 
 
 
-for (int i = 1; i <= NumOfNodOfFirstNet; i++) {
-// Persian: for e khat 4 shebhe cod
-visitedsrcu[i] = 0;
+	for (int i = 1; i <= NumOfNodOfFirstNet; i++) {
+		
+		visitedsrcu[i] = 0;
 
 
-}
+	}
 
 
-for (int j = 1; j <= NumOfNodOfSecondNet; j++)
-{
-visitedtarv[j] = 0;
+	for (int j = 1; j <= NumOfNodOfSecondNet; j++)
+	{
+		visitedtarv[j] = 0;
 
 
-}
+	}
 
-for (int i = 1; i <= NumOfNodOfFirstNet; i++)
-{
-falignment[i] = -1;
+	for (int i = 1; i <= NumOfNodOfFirstNet; i++)
+	{
+		falignment[i] = -1;
 
-}
+	}
 
-//the below part calculates the maximum value of the vote matrix that are unvisited for each iteration
-for (int i = 1; i <= NumOfNodOfFirstNet; i++)
-{
-//English: maxx and maxy are Ustar and Vstar of the algorithm
-int maxx = 0;
-int maxy = 0;//Persian: hamoon ustar , vstar and
-double maxs = -1.0;
-for (int i = 1; i <= NumOfNodOfFirstNet; i++)
-{
+	//the below part calculates the maximum value of the vote matrix that are unvisited for each iteration
+	for (int i = 1; i <= NumOfNodOfFirstNet; i++)
+	{
+		//English: maxx and maxy are Ustar and Vstar of the algorithm
+		int maxx = 0;
+		int maxy = 0;
+		double maxs = -1.0;
+		for (int i = 1; i <= NumOfNodOfFirstNet; i++)
+		{
 
-for (int j = 1; j <= NumOfNodOfSecondNet; j++)
-{
+			for (int j = 1; j <= NumOfNodOfSecondNet; j++)
+			{
 
-if ((visitedsrcu[i] == 1) || (visitedtarv[j] == 1))
-continue;
-if (vote[i][j] > maxs)
-{
-//cout << "i is :" << i << "j is: " << j << endl;
-maxx = i;
-maxy = j;
-maxs = vote[i][j];
-//std::cout << "i is :" << i << "j is: " << j << endl;
-}
-}
-}
+				if ((visitedsrcu[i] == 1) || (visitedtarv[j] == 1))
+					continue;
+				if (vote[i][j] > maxs)
+				{
+					//cout << "i is :" << i << "j is: " << j << endl;
+					maxx = i;
+					maxy = j;
+					maxs = vote[i][j];
+					//std::cout << "i is :" << i << "j is: " << j << endl;
+				}
+			}
+		}
 
-//the below array is the output: the aligned nodes of networks in an array named falignment
-falignment[maxy] = maxx;
-//cout << " maxx is : " << maxx << " maxy is : " << maxy << " maxs is ; " << maxs << endl;
-visitedsrcu[maxx] = 1;
-visitedtarv[maxy] = 1;
-list<int> ::iterator it;
+		//the below array is the output: the aligned nodes of networks in an array named falignment
+		falignment[maxy] = maxx;
+		//cout << " maxx is : " << maxx << " maxy is : " << maxy << " maxs is ; " << maxs << endl;
+		visitedsrcu[maxx] = 1;
+		visitedtarv[maxy] = 1;
+		list<int> ::iterator it;
 
-//the below part makes the vote matrix updated based on new similarities
-for (it = adj_list[maxx].begin(); it != adj_list[maxx].end(); ++it)
-{
-cout << *it << " ";
-list<int> ::iterator co;
-for (co = myListSecondNet[maxy].begin(); co != myListSecondNet[maxy].end(); ++co)
-{
-double intoParantez;
-intoParantez = simi[*it][*co] + simi[maxx][maxy];
-cout << *co << " ";
-vote[*it][*co] += beta_e * intoParantez;
-}
-}
+		//the below part makes the vote matrix updated based on new similarities
+		for (it = adj_list[maxx].begin(); it != adj_list[maxx].end(); ++it)
+		{
+			cout << *it << " ";
+			list<int> ::iterator co;
+			for (co = myListSecondNet[maxy].begin(); co != myListSecondNet[maxy].end(); ++co)
+			{
+				double intoParantez;
+				intoParantez = simi[*it][*co] + simi[maxx][maxy];
+				cout << *co << " ";
+				vote[*it][*co] += beta_e * intoParantez;
+			}
+		}
 
 
 
-}
+	}
 
 
-//this prints the aligned nodes as the output
-for (int i = 1; i <= NumOfNodOfFirstNet; i++)
-{
-cout << endl << " The alignment of node " << i << " of the bigger network is:"<< falignment[i]<<endl;
+	//this prints the aligned nodes as the output
+	for (int i = 1; i <= NumOfNodOfFirstNet; i++)
+	{
+		cout << endl << " The alignment of node " << i << " of the bigger network is:" << falignment[i] << endl;
 
 
-}
-cout << endl << " (-1 means not an aligned node found) ";
+	}
+	cout << endl << " (-1 means not an aligned node found) ";
 
 
 
-std::cin >> keep;
+	std::cin >> keep;
 
-return 0;
+	return 0;
 }
