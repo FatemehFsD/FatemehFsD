@@ -120,8 +120,8 @@ void saveNetFirst() {
 	int t = 1;
 	string STRING2;
 	ifstream theInputFile;
-	//the name of variable "test.net.bozorgtar2" means the biggerNetwork
-	theInputFile.open("test.net.bozorgtar2");
+	//the name of variable "test.net.bigger" means the biggerNetwork
+	theInputFile.open("test.net.bigger");
 	getline(theInputFile, STRING2);
 	//cout << "string2 : " << STRING2 << endl;
 	stringstream geek(STRING2);
