@@ -1,6 +1,7 @@
 # What is the project?
 
 ## This algorithm is for alignment of biological networks and it aligns nodes based on their similarities to their neighbours. It receives two networks and the similarity file of them as input and then computes the aligned nodes based on the similar neighbours. However, to make it more understandable there are two simple networks with reduced nodes and edges to demonstrate more clearly. 
+The name of the algorithm is Wave that is for alignment in biological networks.
 
 # How does the algorithm work?
 
