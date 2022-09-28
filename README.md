@@ -38,7 +38,7 @@ In the main:
 
 # How to run?
 
-## First, there are 4 files named: simi, test.net.bigger, test-network and wTask2 that should be dowloaded. Then visual studio version 2017 and later years are suitable to open a new console c++ project, and copy the codes in wTask2 inside it and run. 
+## First, there are 4 files named: simi, test.net.bigger, test-network and waveAlignment that should be dowloaded. Then visual studio version 2017 and later years are suitable to open a new console c++ project, and copy the codes in waveAlignment inside it and run. 
 
 ## Inputs are simi, test.net.bigger and test-network files. The input format are .txt files that contains 2 input networks and one similarity file of those networks. Each input network contains the edges of that network, each edge is named by two nodes, and nodes are named by integers. Therefore, each input file in the first line indicates the number of nodes and then edges, and in the rest lines each edge is written by the nodes as a pair integers. In the similarity file in each line is indicated the node of one network and the node of another network as integers with the similarity value. Output is on the debug window.
 
